@@ -64,7 +64,7 @@ describe Semantic::Version do
       v4.pre.should be_nil
       v4.build.should == 'hello'
     end
-    
+
     it "provides round-trip fidelity for an empty build parameter" do
       v = Semantic::Version.new("1.2.3")
       v.build = ""
@@ -84,6 +84,10 @@ describe Semantic::Version do
       @v1_5_9_pre_1 = Semantic::Version.new '1.5.9-pre.1'
       @v1_5_9_pre_1_build_5127 = Semantic::Version.new '1.5.9-pre.1+build.5127'
       @v1_5_9_pre_1_build_4352 = Semantic::Version.new '1.5.9-pre.1+build.4352'
+
+      @v1_5_9_pre_8 = Semantic::Version.new "1.5.9-pre.8"
+      @v1_5_9_pre_11 = Semantic::Version.new "1.5.9-pre.11"
+
 
       @v1_5_9 = Semantic::Version.new '1.5.9'
       @v1_6_0 = Semantic::Version.new '1.6.0'
@@ -117,6 +121,9 @@ describe Semantic::Version do
       # (SemVer 2.0.0-rc.2, paragraph 10 - http://www.semver.org)
       @v1_5_9_pre_1.should_not > @v1_5_9_pre_1_build_5127
       @v1_5_9_pre_1.should_not < @v1_5_9_pre_1_build_5127
+
+      @v1_5_9_pre_11.should > @v1_5_9_pre_8
+
 
       @v1_6_0.should > @v1_5_9
       @v1_5_9.should_not > @v1_6_0

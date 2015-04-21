@@ -154,9 +154,16 @@ module Semantic
         return -1
       end
 
-      if a < b
+      if a.kind_of?(String) && b.kind_of?(String)
+        a, *a_rest = a.split('.')
+        a_rest.each {|a_str| ary1.unshift(a_str)}
+        b, *b_rest = b.split('.')
+        b_rest.each {|b_str| ary2.unshift(b_str)}
+      end
+
+      if a.to_f < b.to_f
         return -1
-      elsif a > b
+      elsif a.to_f > b.to_f
         return 1
       end
 
