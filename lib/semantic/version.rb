@@ -154,16 +154,20 @@ module Semantic
         return -1
       end
 
+      # If we have decimals in the string, split them out and continue comparing
       if a.kind_of?(String) && b.kind_of?(String)
         a, *a_rest = a.split('.')
         a_rest.each {|a_str| ary1.unshift(a_str)}
         b, *b_rest = b.split('.')
         b_rest.each {|b_str| ary2.unshift(b_str)}
       end
+      # Compare numbers if they are numbers.  Compare strings if they are strings.
+      a = a =~ /^\d*$/ ? a.to_f : a 
+      b = b =~ /^\d*$/ ? b.to_f : b
 
-      if a.to_f < b.to_f
+      if a < b
         return -1
-      elsif a.to_f > b.to_f
+      elsif a > b
         return 1
       end
 
